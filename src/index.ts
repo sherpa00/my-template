@@ -1,11 +1,11 @@
-import express, {Request, Response} from "express";
+import express, { Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import helmet from "helmet";
 
 // config env variables
 dotenv.config({
-    path: `.env.${process.env.NODE_ENV}`
+  path: `.env.${process.env.NODE_ENV}`,
 });
 
 const app = express();
@@ -15,24 +15,21 @@ app.use(helmet());
 
 // Parse JSON
 app.use(express.json());
-// url encoding 
-app.use(express.urlencoded({
-    extended: true
-}));
+// url encoding
+app.use(
+  express.urlencoded({
+    extended: true,
+  }),
+);
 // cors configuration
 app.use(cors());
 
-
 // ----- APP ROUTES
-app.get(
-    "/",
-    (req: Request, res: Response) => {
-        res.json({
-            success: true,
-            message: "Successfully loaded"
-        });
-    }
-);
+app.get("/", (req: Request, res: Response) => {
+  res.json({
+    success: true,
+    message: "Successfully loaded",
+  });
+});
 
 export default app;
-
