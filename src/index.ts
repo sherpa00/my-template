@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import helmet from "helmet";
+import morgan from "morgan";
 
 // config env variables
 dotenv.config({
@@ -23,6 +24,13 @@ app.use(
 );
 // cors configuration
 app.use(cors());
+
+// http logging
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+} else {
+  app.use(morgan("common"));
+}
 
 // ----- APP ROUTES
 app.get("/", (req: Request, res: Response) => {
