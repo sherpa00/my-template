@@ -6,6 +6,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
 import logger from "./util/logger";
+import MainRouter from "./routes";
 
 // config env variables
 dotenv.config({
@@ -35,19 +36,6 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("common"));
 }
 
-// ----- APP ROUTES
-app.get("/", async (req: Request, res: Response) => {
-  try {
-    res.json({
-      success: true,
-      message: "Successfully loaded",
-    });
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (err: any) {
-    logger.error(err, "Error while getting root route");
-  }
-});
-
 // api docs for dev
 if (process.env.NODE_ENV === "development") {
   const swaggerFile: string = process.cwd() + "/src/swagger/swagger.json";
@@ -67,5 +55,20 @@ if (process.env.NODE_ENV === "development") {
     }),
   );
 }
+
+// ----- APP ROUTES
+app.get("/", async (req: Request, res: Response) => {
+  try {
+    res.json({
+      success: true,
+      message: "Successfully loaded",
+    });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (err: any) {
+    logger.error(err, "Error while getting root route");
+  }
+});
+
+app.use("/api", MainRouter);
 
 export default app;

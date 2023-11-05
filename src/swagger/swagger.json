@@ -12,18 +12,19 @@
       "url": "https://choosealicense/license/mit/"
     }
   },
+  "basePath": "/api",
   "paths": {
-    "/": {
+    "/healthCheck": {
       "get": {
-        "summary": "Root Route",
-        "description": "This shows if the root route API is alive",
+        "summary": "Get Health Check Info of api",
+        "description": "This route shows the overall health of api",
         "produces": ["application/json"],
-        "tags": ["Root Route"],
+        "tags": ["Health Check"],
         "responses": {
           "200": {
-            "description": "Successfully loaded",
+            "description": "Successfully got health info",
             "schema": {
-              "$ref": "#/definitions/RootRoute_success"
+              "$ref": "#/definitions/HealtCheck_success"
             }
           },
           "500": {
@@ -37,15 +38,26 @@
     }
   },
   "definitions": {
-    "RootRoute_success": {
+    "HealtCheck_success": {
       "properties": {
-        "success": {
-          "type": "boolean",
-          "example": true
+        "uptime": {
+          "type": "integer",
+          "example": 234890845.934
+        },
+        "responsetime": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          },
+          "example": [2344353, 4324324]
         },
         "message": {
           "type": "string",
           "example": "Successfully loaded"
+        },
+        "timestamp": {
+          "type": "integer",
+          "example": 1234348934982374
         }
       }
     }
