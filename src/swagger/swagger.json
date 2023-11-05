@@ -1,0 +1,53 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "REST Documentation",
+    "description": "REST API DOCUMENTATION",
+    "version": "1.0.0",
+    "contact": {
+      "github": "@sherpa00"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://choosealicense/license/mit/"
+    }
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Root Route",
+        "description": "This shows if the root route API is alive",
+        "produces": ["application/json"],
+        "tags": ["Root Route"],
+        "responses": {
+          "200": {
+            "description": "Successfully loaded",
+            "schema": {
+              "$ref": "#/definitions/RootRoute_success"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "default": {
+            "description": "Unexpected Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "RootRoute_success": {
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "example": true
+        },
+        "message": {
+          "type": "string",
+          "example": "Successfully loaded"
+        }
+      }
+    }
+  }
+}

@@ -12,5 +12,4 @@ const PORT: number = parseInt(process.env.PORT!);
 // start server
 app.listen(PORT, () => {
   logger.info(`Server is running on port ${PORT}`);
-  logger.error(new Error("Testing"));
 });
