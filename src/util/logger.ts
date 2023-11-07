@@ -1,6 +1,6 @@
 import winston from "winston";
 
-const { combine, timestamp, printf, colorize, align, errors } = winston.format;
+const { combine, timestamp, printf, colorize, align } = winston.format;
 
 const logger = winston.createLogger({
   level: "info",
@@ -9,7 +9,7 @@ const logger = winston.createLogger({
     timestamp({
       format: "YYYY-MM-DD hh:mm:ss.SSS A",
     }),
-    errors({ stack: true }),
+    winston.format.errors({ stack: true }),
     align(),
     printf((info) => `[${info.timestamp}] ${info.level}: ${info.message}`),
   ),

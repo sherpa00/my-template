@@ -1,5 +1,8 @@
-import { IRouter, Router, Request, Response } from "express";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars */
+import { IRouter, Router, Request, Response, NextFunction } from "express";
 import logger from "../util/logger";
+import BadRequestError from "../errors/BadRequestError";
 
 const healthCheckRouter: IRouter = Router();
 
@@ -10,8 +13,9 @@ interface HealthCheckResponse {
   timestamp: number;
 }
 
-healthCheckRouter.get("/", (req: Request, res: Response): void => {
+healthCheckRouter.get("/", (req: Request, res: Response, next: NextFunction): void => {
   try {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const healthCheckInfo: HealthCheckResponse = {
       uptime: process.uptime(),
       responsetime: process.hrtime(),
@@ -22,8 +26,7 @@ healthCheckRouter.get("/", (req: Request, res: Response): void => {
     res.status(200).json(healthCheckInfo);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: Error | any) {
-    logger.error(err, "Error while getting health check");
-    res.status(400).json({});
+    next(err);
   }
 });
 

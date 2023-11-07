@@ -7,6 +7,7 @@ import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
 import logger from "./util/logger";
 import MainRouter from "./routes";
+import ErrorHandler from "./middlewares/customError.middleware";
 
 // config env variables
 dotenv.config({
@@ -70,5 +71,7 @@ app.get("/", async (req: Request, res: Response) => {
 });
 
 app.use("/api", MainRouter);
+
+app.use(ErrorHandler);
 
 export default app;
