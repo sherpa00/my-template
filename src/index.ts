@@ -1,18 +1,13 @@
 import { readFileSync } from "fs";
 import express, { Request, Response } from "express";
 import cors from "cors";
-import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
 import logger from "./util/logger";
 import MainRouter from "./routes";
+import env_variables from "./configs/env_variables_config";
 import ErrorHandler from "./middlewares/customError.middleware";
-
-// config env variables
-dotenv.config({
-  path: `.env.${process.env.NODE_ENV}`,
-});
 
 const app = express();
 
@@ -31,14 +26,14 @@ app.use(
 app.use(cors());
 
 // http logging
-if (process.env.NODE_ENV === "development") {
+if (env_variables.environment.node_env === "development") {
   app.use(morgan("dev"));
 } else {
   app.use(morgan("common"));
 }
 
 // api docs for dev
-if (process.env.NODE_ENV === "development") {
+if (env_variables.environment.node_env === "development") {
   const swaggerFile: string = process.cwd() + "/src/swagger/swagger.json";
   const swaggerData: string = readFileSync(swaggerFile, "utf-8");
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

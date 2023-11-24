@@ -1,13 +1,8 @@
-import dotenv from "dotenv";
+import env_variables from "./configs/env_variables_config";
 import app from "./index";
 import logger from "./util/logger";
 
-// env variables config
-dotenv.config({
-  path: `.env.${process.env.NODE_ENV}`,
-});
-
-const PORT: number = parseInt(process.env.PORT!);
+const PORT: number = parseInt(env_variables.server.port!);
 
 // start server
 app.listen(PORT, () => {
